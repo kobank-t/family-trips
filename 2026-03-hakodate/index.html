@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函館家族旅行 2026年3月28日〜30日</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #FFF8F0;
+      color: #2D3748;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ヒーローヘッダー */
+    .hero {
+      background: linear-gradient(135deg, #FF6B35 0%, #FF9A56 100%);
+      color: white;
+      padding: 2rem 1.25rem 1.75rem;
+      text-align: center;
+    }
+    .hero h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: 0.02em; }
+    .hero .meta { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.9rem; opacity: 0.93; }
+    .hero .meta span { display: block; }
+
+    /* 日程ナビ */
+    .day-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex; gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .day-nav a {
+      flex-shrink: 0;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      border: 2px solid #FF6B35;
+      color: #FF6B35;
+      font-size: 0.85rem; font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .day-nav a:hover, .day-nav a:active { background: #FF6B35; color: #fff; }
+
+    /* 日程セクション */
+    .day-section { padding: 1.5rem 1.25rem 0.5rem; max-width: 600px; margin: 0 auto; }
+    .day-header { margin-bottom: 1.25rem; }
+    .day-label { font-size: 0.72rem; font-weight: 800; color: #FF6B35; letter-spacing: 0.08em; text-transform: uppercase; }
+    .day-date { font-size: 0.82rem; color: #718096; margin-top: 0.1rem; }
+    .day-title { font-size: 1.1rem; font-weight: 700; color: #2D3748; margin-top: 0.2rem; }
+
+    /* タイムライン */
+    .timeline { position: relative; padding-left: 2.75rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 1rem; top: 0.875rem; bottom: 0.875rem;
+      width: 2px; background: #E2E8F0;
+    }
+    .timeline-item { position: relative; margin-bottom: 1rem; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -2.75rem;
+      width: 2rem; height: 2rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      border: 2.5px solid #FFF8F0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .tl-time { font-size: 0.72rem; color: #718096; font-weight: 700; margin-bottom: 0.2rem; }
+    .tl-card { border-radius: 0.75rem; padding: 0.7rem 0.9rem; }
+    .tl-card h3 { font-size: 0.9rem; font-weight: 700; color: #1A202C; line-height: 1.4; }
+    .tl-card .note { font-size: 0.78rem; color: #4A5568; margin-top: 0.25rem; line-height: 1.5; }
+
+    /* 費用まとめ */
+    .budget-wrap { max-width: 600px; margin: 1.5rem auto 2rem; padding: 0 1.25rem; }
+    .budget-card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.25rem 1.25rem 0.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .budget-card h2 { font-size: 1rem; font-weight: 700; color: #2D3748; margin-bottom: 0.9rem; }
+    .budget-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #F7FAFC;
+      gap: 0.75rem;
+    }
+    .budget-item:last-child { border-bottom: none; }
+    .budget-item .bi-label { font-size: 0.85rem; color: #4A5568; flex: 1; }
+    .budget-item .bi-amount { font-size: 0.85rem; font-weight: 700; color: #2D3748; text-align: right; white-space: nowrap; }
+
+    /* セパレーター */
+    .day-divider { height: 1px; background: #EDF2F7; max-width: 600px; margin: 1rem auto; }
+
+    /* フッター */
+    footer { text-align: center; padding: 2rem 1rem; color: #A0AEC0; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>✈️ 函館家族旅行</h1>
+  <div class="meta">
+    <span>📅 2026年3月28日〜30日</span>
+    <span>🏠 北広島市（白石区体育館 12:30出発）</span>
+    <span>👨‍👩‍👦‍👦 父（42歳）・母（42歳）・長男（小2）・次男（小1）</span>
+  </div>
+</header>
+
+<nav class="day-nav">
+  <a href="#day1">Day 1</a>
+  <a href="#day2">Day 2</a>
+  <a href="#day3">Day 3</a>
+  <a href="#budget">💰 費用</a>
+</nav>
+
+<!-- Day 1 -->
+<section class="day-section" id="day1">
+  <div class="day-header">
+    <div class="day-label">Day 1</div>
+    <div class="day-date">2026年3月28日（土）</div>
+    <div class="day-title">函館着・ホテルブッフェ・ベイエリア散策</div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">12:30</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>白石区体育館 出発</h3>
+        <p class="note">函館まで約340km・4〜4.5時間</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">14:30</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3>途中休憩（八雲・長万部SA）</h3>
+        <p class="note">トイレ・軽い休憩</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#EDE9FE;color:#7C3AED;">🏨</div>
+      <div class="tl-time">17:00</div>
+      <div class="tl-card" style="background:#EDE9FE;">
+        <h3>ホテル着・チェックイン（海と灯／ヒューイットリゾート）</h3>
+        <p class="note">まずはひと息</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">17:30</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3>ホテル夕食ブッフェ</h3>
+        <p class="note">北海道食材150種！〜21:00・LO20:30</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">19:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3>金森赤レンガ倉庫エリア散策（車で約15分）</h3>
+        <p class="note">食後の腹ごなし。石屋製菓・ご当地キーホルダーチェック</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#EDE9FE;color:#7C3AED;">🏨</div>
+      <div class="tl-time">20:30</div>
+      <div class="tl-card" style="background:#EDE9FE;">
+        <h3>ホテルへ戻る</h3>
+        <p class="note">温泉に入ってゆっくり就寝</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="day-divider"></div>
+
+<!-- Day 2 -->
+<section class="day-section" id="day2">
+  <div class="day-header">
+    <div class="day-label">Day 2</div>
+    <div class="day-date">2026年3月29日（日）</div>
+    <div class="day-title">市電で五稜郭・ラーメン・蔦屋・ラッキーピエロ・近場で夕食</div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">7:00</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3>ホテル朝食ブッフェ</h3>
+        <p class="note">約140種の北海道最大級朝食。〜10:00</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">10:00</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>チェックアウト → 市電「湯の川温泉」乗車</h3>
+        <p class="note">1日乗車券（大人800円・小児400円）を購入！</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">10:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3>五稜郭タワー＆五稜郭公園</h3>
+        <p class="note">市電「五稜郭公園前」下車・徒歩10分。ご当地キーホルダーも</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">12:30</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3>函館麺厨房 あじさい 本店</h3>
+        <p class="note">90年以上の老舗！透明感のある塩ラーメン。五稜郭町29-22</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">13:30</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>市電でホテルへ戻り、車に乗り換え</h3>
+        <p class="note">荷物も積んで出発</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">14:00</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3>函館蔦屋書店（車で約10〜15分）</h3>
+        <p class="note">日本最大級の書店。子どもも遊べる広大な空間</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">15:30</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3>ラッキーピエロ（蔦屋書店近くの店舗）</h3>
+        <p class="note">函館名物バーガーをここで！</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#EDE9FE;color:#7C3AED;">🏨</div>
+      <div class="tl-time">17:00</div>
+      <div class="tl-card" style="background:#EDE9FE;">
+        <h3>HAKODATE海峡の風 チェックイン</h3>
+        <p class="note">和洋室66平米・高層階・展望温泉付き</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">18:30</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3>夕食 ― 和市 or 居酒屋 数（ホテル徒歩圏内）</h3>
+        <p class="note">地元客に大人気の海鮮居酒屋。事前予約推奨</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="day-divider"></div>
+
+<!-- Day 3 -->
+<section class="day-section" id="day3">
+  <div class="day-header">
+    <div class="day-label">Day 3</div>
+    <div class="day-date">2026年3月30日（月）</div>
+    <div class="day-title">ホテルでのんびり・函館山・お土産・帰路</div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#EDE9FE;color:#7C3AED;">🏨</div>
+      <div class="tl-time">〜11:00</div>
+      <div class="tl-card" style="background:#EDE9FE;">
+        <h3>ホテルでのんびり（チェックアウトまで）</h3>
+        <p class="note">朝食・温泉・お部屋でゆっくり過ごす</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">11:00</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3>チェックアウト → 函館山（車で約15分）</h3>
+        <p class="note">日中の函館山へ！晴れていれば津軽海峡・下北半島まで絶景</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">12:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3>お土産タイム（函館駅・金森倉庫エリア）</h3>
+        <p class="note">キーホルダー買い忘れチェック！</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">13:30</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>函館出発 → 北広島へ</h3>
+        <p class="note">約340km・4〜4.5時間。夕方〜18時頃帰宅</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 費用まとめ -->
+<div class="budget-wrap" id="budget">
+  <div class="budget-card">
+    <h2>💰 旅行費用まとめ</h2>
+    <div class="budget-item">
+      <span class="bi-label">1泊目（海と灯／ヒューイットリゾート）</span>
+      <span class="bi-amount">約51,900円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">2泊目（HAKODATE海峡の風）</span>
+      <span class="bi-amount">78,166マイル</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">ガソリン（往復約680km）</span>
+      <span class="bi-amount">約8,000〜10,000円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">市電1日乗車券（3/29）</span>
+      <span class="bi-amount">2,400円（大人×2＋小児×2）</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">函館山ロープウェイ（3/30）</span>
+      <span class="bi-amount">4,400円（大人1,500×2＋小人700×2）</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">食費（3日間）</span>
+      <span class="bi-amount">約20,000〜30,000円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">現金合計目安（マイル除く）</span>
+      <span class="bi-amount">約9〜10万円</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>🏖️ 楽しい旅になりますように！</p>
+</footer>
+
+</body>
+</html>
