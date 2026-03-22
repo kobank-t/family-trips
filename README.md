@@ -2,7 +2,7 @@
 
 家族旅行の旅程表を GitHub Pages で公開するリポジトリ。
 
-🔗 https://kobank-t.github.io/family-trips/
+🔗 <https://kobank-t.github.io/family-trips/>
 
 ## このリポジトリについて
 
