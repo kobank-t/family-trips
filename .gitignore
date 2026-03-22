@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# エディター
+.vscode/
+*.swp
+*.swo
+
+# 一時ファイル
+*.tmp
+*.bak
