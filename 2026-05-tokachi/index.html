@@ -121,6 +121,19 @@
     .budget-item .bi-label { font-size: 0.85rem; color: #4A5568; flex: 1; }
     .budget-item .bi-amount { font-size: 0.85rem; font-weight: 700; color: #2D3748; text-align: right; white-space: nowrap; }
 
+    /* 経路マップ */
+    .map-section { max-width: 600px; margin: 1.25rem auto 0.5rem; padding: 0 1.25rem; }
+    .map-section h2 { font-size: 1rem; font-weight: 700; color: #2D3748; margin-bottom: 0.6rem; padding-left: 0.25rem; }
+    .map-svg-wrap { background: #fff; border-radius: 1rem; padding: 0.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+    .map-svg-wrap svg { width: 100%; height: auto; display: block; border-radius: 0.75rem; }
+    .map-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 0.85rem; padding: 0 0.25rem; font-size: 0.78rem; color: #4A5568; }
+    .map-legend > span { display: inline-flex; align-items: center; }
+    .map-legend .swatch { display: inline-block; width: 1.4rem; height: 0.25rem; border-radius: 999px; margin-right: 0.45rem; }
+    .map-links { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.9rem; }
+    .map-links a { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.85rem; background: #fff; border-left: 3px solid #FF6B35; border-radius: 0.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.05); text-decoration: none; color: #2D3748; font-size: 0.85rem; font-weight: 600; }
+    .map-links a:hover { background: #FFF8F0; }
+    .map-links a .ext { font-size: 0.85em; opacity: 0.55; }
+
     /* セパレーター */
     .day-divider { height: 1px; background: #EDF2F7; max-width: 600px; margin: 1rem auto; }
 
@@ -139,12 +152,110 @@
 </header>
 
 <nav class="day-nav">
+  <a href="#map">🗺️ 経路</a>
   <a href="#day1">Day 1</a>
   <a href="#day2">Day 2</a>
   <a href="#day3">Day 3</a>
   <a href="#hotels">🏨 宿</a>
   <a href="#budget">💰 費用</a>
 </nav>
+
+<!-- 経路マップ -->
+<section class="map-section" id="map">
+  <h2>🗺️ 全行程ルート</h2>
+  <div class="map-svg-wrap">
+    <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="3日間の移動経路マップ">
+      <defs>
+        <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/>
+        </marker>
+        <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/>
+        </marker>
+        <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+        </marker>
+      </defs>
+
+      <rect width="600" height="360" fill="#EEF2F7"/>
+
+      <!-- コンパス -->
+      <g transform="translate(560,28)">
+        <line x1="0" y1="2" x2="0" y2="22" stroke="#4A5568" stroke-width="2"/>
+        <path d="M-5,8 L0,2 L5,8" fill="#4A5568"/>
+        <text y="38" text-anchor="middle" font-size="10" font-weight="700" fill="#4A5568">N</text>
+      </g>
+
+      <!-- タイトル -->
+      <text x="20" y="28" font-size="13" font-weight="700" fill="#2D3748">道央→十勝→道北→帰路 約700km</text>
+
+      <!-- Day 1 ルート（赤） -->
+      <polyline points="82,295 290,302 412,270 508,235"
+        fill="none" stroke="#DC2626" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"
+        marker-end="url(#arrR)"/>
+      <!-- Day 2 ルート（青） -->
+      <polyline points="508,235 437,193 417,242 355,287 365,113"
+        fill="none" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"
+        marker-end="url(#arrB)"/>
+      <!-- Day 3 ルート（緑） -->
+      <polyline points="365,113 313,81 243,109 82,295"
+        fill="none" stroke="#059669" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"
+        marker-end="url(#arrG)"/>
+
+      <!-- 中継地点 -->
+      <g fill="#2D3748">
+        <circle cx="290" cy="302" r="3.5"/>
+        <circle cx="412" cy="270" r="3.5"/>
+        <circle cx="437" cy="193" r="3.5"/>
+        <circle cx="417" cy="242" r="3.5"/>
+        <circle cx="355" cy="287" r="3.5"/>
+        <circle cx="313" cy="81" r="3.5"/>
+        <circle cx="243" cy="109" r="3.5"/>
+      </g>
+
+      <!-- 主要拠点 -->
+      <circle cx="82" cy="295" r="10" fill="#FF6B35" stroke="#fff" stroke-width="2.5"/>
+      <text x="82" y="319" text-anchor="middle" font-size="11" font-weight="700" fill="#2D3748">北広島</text>
+      <text x="82" y="332" text-anchor="middle" font-size="9" fill="#718096">出発・帰宅</text>
+
+      <circle cx="508" cy="235" r="9" fill="#7C3AED" stroke="#fff" stroke-width="2.5"/>
+      <text x="508" y="222" text-anchor="middle" font-size="11" font-weight="700" fill="#2D3748">🛏 しほろ温泉</text>
+      <text x="508" y="212" text-anchor="middle" font-size="9" fill="#718096">1泊目</text>
+
+      <circle cx="365" cy="113" r="9" fill="#7C3AED" stroke="#fff" stroke-width="2.5"/>
+      <text x="378" y="110" font-size="11" font-weight="700" fill="#2D3748">🛏 美瑛白金</text>
+      <text x="378" y="123" font-size="9" fill="#718096">2泊目</text>
+
+      <!-- 中継ラベル -->
+      <g font-size="9" fill="#4A5568">
+        <text x="290" y="318" text-anchor="middle">占冠</text>
+        <text x="412" y="288" text-anchor="middle">サホロ</text>
+        <text x="437" y="184" text-anchor="middle">然別湖</text>
+        <text x="355" y="305" text-anchor="middle">南富良野</text>
+        <text x="313" y="73" text-anchor="middle">パッチワークの路</text>
+        <text x="243" y="125" text-anchor="middle">芦別おふろcafé</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="map-legend">
+    <span><span class="swatch" style="background:#DC2626;"></span>Day 1（北広島→しほろ）</span>
+    <span><span class="swatch" style="background:#2563EB;"></span>Day 2（しほろ→美瑛白金）</span>
+    <span><span class="swatch" style="background:#059669;"></span>Day 3（美瑛→帰宅）</span>
+  </div>
+
+  <div class="map-links">
+    <a href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=北広島市&destination=道の駅しほろ温泉プラザ緑風&waypoints=占冠PA(下り)|新得町総合体育館" target="_blank" rel="noopener noreferrer">
+      <span>📍 Day 1の経路をGoogleマップで開く</span><span class="ext">↗</span>
+    </a>
+    <a href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=道の駅しほろ温泉プラザ緑風&destination=道の駅びえい白金ビルケ&waypoints=然別湖|狩勝峠展望台|道の駅南ふらの|白金青い池|碧の美ゆゆ" target="_blank" rel="noopener noreferrer">
+      <span>📍 Day 2の経路をGoogleマップで開く</span><span class="ext">↗</span>
+    </a>
+    <a href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=道の駅びえい白金ビルケ&destination=北広島市&waypoints=ケンとメリーの木|芦別温泉スターライトホテル" target="_blank" rel="noopener noreferrer">
+      <span>📍 Day 3の経路をGoogleマップで開く</span><span class="ext">↗</span>
+    </a>
+  </div>
+</section>
 
 <!-- Day 1 -->
 <section class="day-section" id="day1">
