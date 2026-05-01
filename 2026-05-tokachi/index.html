@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GW 十勝・道央 バドミントン＆温泉ドライブ旅 2026年5月3日〜5日</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #FFF8F0;
+      color: #2D3748;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ヒーローヘッダー */
+    .hero {
+      background: linear-gradient(135deg, #FF6B35 0%, #FF9A56 100%);
+      color: white;
+      padding: 2rem 1.25rem 1.75rem;
+      text-align: center;
+    }
+    .hero h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: 0.02em; line-height: 1.35; }
+    .hero .meta { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.9rem; opacity: 0.93; }
+    .hero .meta span { display: block; }
+
+    /* 日程ナビ */
+    .day-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex; gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .day-nav a {
+      flex-shrink: 0;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      border: 2px solid #FF6B35;
+      color: #FF6B35;
+      font-size: 0.85rem; font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .day-nav a:hover, .day-nav a:active { background: #FF6B35; color: #fff; }
+
+    /* 日程セクション */
+    .day-section { padding: 1.5rem 1.25rem 0.5rem; max-width: 600px; margin: 0 auto; }
+    .day-header { margin-bottom: 1.25rem; }
+    .day-label { font-size: 0.72rem; font-weight: 800; color: #FF6B35; letter-spacing: 0.08em; text-transform: uppercase; }
+    .day-date { font-size: 0.82rem; color: #718096; margin-top: 0.1rem; }
+    .day-title { font-size: 1.1rem; font-weight: 700; color: #2D3748; margin-top: 0.2rem; }
+
+    /* タイムライン */
+    .timeline { position: relative; padding-left: 2.75rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 1rem; top: 0.875rem; bottom: 0.875rem;
+      width: 2px; background: #E2E8F0;
+    }
+    .timeline-item { position: relative; margin-bottom: 1rem; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -2.75rem;
+      width: 2rem; height: 2rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      border: 2.5px solid #FFF8F0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .tl-time { font-size: 0.72rem; color: #718096; font-weight: 700; margin-bottom: 0.2rem; }
+    .tl-card { border-radius: 0.75rem; padding: 0.7rem 0.9rem; }
+    .tl-card h3 { font-size: 0.9rem; font-weight: 700; color: #1A202C; line-height: 1.4; }
+    .tl-card h3 a { color: inherit; text-decoration: none; }
+    .tl-card h3 a:hover { text-decoration: underline; }
+    .tl-card h3 .ext { font-size: 0.75em; opacity: 0.55; margin-left: 0.25em; }
+    .tl-card .note { font-size: 0.78rem; color: #4A5568; margin-top: 0.25rem; line-height: 1.5; }
+
+    /* 宿情報 */
+    .hotels-wrap { max-width: 600px; margin: 1.5rem auto 0.5rem; padding: 0 1.25rem; }
+    .hotels-wrap > h2 { font-size: 1rem; font-weight: 700; color: #2D3748; margin-bottom: 0.75rem; padding-left: 0.25rem; }
+    .hotel-card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      margin-bottom: 0.85rem;
+      border-left: 4px solid #7C3AED;
+    }
+    .hotel-card .h-night { font-size: 0.7rem; font-weight: 800; color: #7C3AED; letter-spacing: 0.08em; text-transform: uppercase; }
+    .hotel-card .h-name { font-size: 0.98rem; font-weight: 700; color: #1A202C; margin-top: 0.15rem; line-height: 1.4; }
+    .hotel-card .h-name a { color: inherit; text-decoration: none; }
+    .hotel-card .h-name a:hover { text-decoration: underline; }
+    .hotel-card .h-name .ext { font-size: 0.72em; opacity: 0.55; margin-left: 0.25em; }
+    .hotel-card .h-plan { font-size: 0.82rem; color: #4A5568; margin-top: 0.45rem; line-height: 1.5; }
+    .hotel-card .h-meta { display: grid; grid-template-columns: 4.5rem 1fr; gap: 0.25rem 0.6rem; margin-top: 0.7rem; font-size: 0.78rem; color: #4A5568; }
+    .hotel-card .h-meta dt { font-weight: 700; color: #718096; }
+    .hotel-card .h-meta dd a { color: #2563EB; text-decoration: none; }
+    .hotel-card .h-meta dd a:hover { text-decoration: underline; }
+
+    /* 費用まとめ */
+    .budget-wrap { max-width: 600px; margin: 1.5rem auto 2rem; padding: 0 1.25rem; }
+    .budget-card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.25rem 1.25rem 0.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .budget-card h2 { font-size: 1rem; font-weight: 700; color: #2D3748; margin-bottom: 0.9rem; }
+    .budget-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #F7FAFC;
+      gap: 0.75rem;
+    }
+    .budget-item:last-child { border-bottom: none; font-weight: 700; }
+    .budget-item .bi-label { font-size: 0.85rem; color: #4A5568; flex: 1; }
+    .budget-item .bi-amount { font-size: 0.85rem; font-weight: 700; color: #2D3748; text-align: right; white-space: nowrap; }
+
+    /* セパレーター */
+    .day-divider { height: 1px; background: #EDF2F7; max-width: 600px; margin: 1rem auto; }
+
+    /* フッター */
+    footer { text-align: center; padding: 2rem 1rem; color: #A0AEC0; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🏸 GW 十勝・道央<br>バドミントン＆温泉ドライブ旅</h1>
+  <div class="meta">
+    <span>📅 2026年5月3日〜5日</span>
+    <span>🏠 北広島市・5/3 4:00出発</span>
+    <span>👨‍👩‍👦‍👦 父（42歳）・母（42歳）・長男（小4）・次男（小2）</span>
+  </div>
+</header>
+
+<nav class="day-nav">
+  <a href="#day1">Day 1</a>
+  <a href="#day2">Day 2</a>
+  <a href="#day3">Day 3</a>
+  <a href="#hotels">🏨 宿</a>
+  <a href="#budget">💰 費用</a>
+</nav>
+
+<!-- Day 1 -->
+<section class="day-section" id="day1">
+  <div class="day-header">
+    <div class="day-label">Day 1</div>
+    <div class="day-date">2026年5月3日（日）</div>
+    <div class="day-title">🏸 バドミントン大会＆士幌のモール温泉</div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">04:00</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>北広島 出発</h3>
+        <p class="note">道東道経由・約3時間</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">06:30</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3><a href="https://www.driveplaza.com/dp/SapaInfo?sapaId=1100015" target="_blank" rel="noopener noreferrer">占冠PA で朝食休憩<span class="ext">↗</span></a></h3>
+        <p class="note">コンビニおにぎり等で軽食</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">07:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://shintoku-town.net/" target="_blank" rel="noopener noreferrer">サホロアリーナ 着<span class="ext">↗</span></a></h3>
+        <p class="note">新得町総合体育館・ウォームアップ</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">09:00</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3>K-styleバドミントン大会</h3>
+        <p class="note">長男出場・〜16:00</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">16:30</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>道の駅しほろ温泉へ移動</h3>
+        <p class="note">約45分</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#EDE9FE;color:#7C3AED;">🏨</div>
+      <div class="tl-time">17:30</div>
+      <div class="tl-card" style="background:#EDE9FE;">
+        <h3><a href="https://www.shihoro-spa.co.jp/" target="_blank" rel="noopener noreferrer">道の駅しほろ温泉プラザ緑風 着<span class="ext">↗</span></a></h3>
+        <p class="note">🔑キーホルダーチェック</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">18:00</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3><a href="https://www.shihoro-spa.co.jp/" target="_blank" rel="noopener noreferrer">夕食：しほろ牛すき焼き定食セット<span class="ext">↗</span></a></h3>
+        <p class="note">温泉入浴付き2,400円・館内レストラン</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">19:30</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3><a href="https://www.shihoro-spa.co.jp/" target="_blank" rel="noopener noreferrer">モール温泉でリラックス<span class="ext">↗</span></a></h3>
+        <p class="note">北海道遺産・露天風呂・サウナ</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">21:00</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3>車中泊1日目</h3>
+        <p class="note">A級評価・トイレ24h・WiFiあり</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="day-divider"></div>
+
+<!-- Day 2 -->
+<section class="day-section" id="day2">
+  <div class="day-header">
+    <div class="day-label">Day 2</div>
+    <div class="day-date">2026年5月4日（月）</div>
+    <div class="day-title">🌲 然別湖の朝ラン → 富良野・美瑛へ</div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">06:00</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3>起床・出発準備</h3>
+        <p class="note">防寒着準備</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">07:00</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>しほろ温泉→然別湖</h3>
+        <p class="note">約50分</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">08:00</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://www.shikaoi.net/detail/4" target="_blank" rel="noopener noreferrer">然別湖 着<span class="ext">↗</span></a></h3>
+        <p class="note">標高810m・5月初旬は朝5℃前後</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">08:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3>🏃 旅ラン①湖畔散策路（3〜5km）</h3>
+        <p class="note">家族で湖畔ジョグ・熊鈴推奨</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">10:00</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://www.shikaoi.net/detail/4" target="_blank" rel="noopener noreferrer">然別湖コタン跡地・湖畔散策<span class="ext">↗</span></a></h3>
+        <p class="note">🔑キーホルダー・売店チェック</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">11:30</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>鹿追町中心部へ移動</h3>
+        <p class="note">約30分</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">12:00</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3><a href="https://www.countrypapa.com/" target="_blank" rel="noopener noreferrer">ランチ：レストランカントリーパパ<span class="ext">↗</span></a></h3>
+        <p class="note">洋食専門・農園ランチ・要営業確認☎01566-6-2888</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">13:30</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>富良野方面へ移動（狩勝峠経由）</h3>
+        <p class="note">約2時間・絶景</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">14:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://shintoku-town.net/" target="_blank" rel="noopener noreferrer">狩勝峠展望台<span class="ext">↗</span></a></h3>
+        <p class="note">十勝平野一望・トイレ休憩</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">15:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://www.minamifurano-michinoeki.com/" target="_blank" rel="noopener noreferrer">道の駅 南富良野<span class="ext">↗</span></a></h3>
+        <p class="note">大型遊具・モンベル・🔑キーホルダー</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">16:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://www.biei-hokkaido.jp/ja/sightseeing/blue-pond/" target="_blank" rel="noopener noreferrer">青い池<span class="ext">↗</span></a></h3>
+        <p class="note">美瑛・駐車場500円</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">17:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://www.biei-hokkaido.jp/ja/sightseeing/shirahige-falls/" target="_blank" rel="noopener noreferrer">白ひげの滝<span class="ext">↗</span></a></h3>
+        <p class="note">徒歩5分・絶景</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">18:30</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3><a href="https://biei-info.jp/birke/" target="_blank" rel="noopener noreferrer">夕食：BTBバーガー@道の駅白金ビルケ<span class="ext">↗</span></a></h3>
+        <p class="note">美瑛小麦バンズ・地元食材</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">20:00</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3>車中泊2日目</h3>
+        <p class="note">🔑キーホルダー道の駅で購入</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="day-divider"></div>
+
+<!-- Day 3 -->
+<section class="day-section" id="day3">
+  <div class="day-header">
+    <div class="day-label">Day 3</div>
+    <div class="day-date">2026年5月5日（火・こどもの日）</div>
+    <div class="day-title">🌅 美瑛の朝ラン → 芦別温泉でゆっくり</div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">06:00</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3>起床</h3>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">06:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://www.biei-hokkaido.jp/ja/sightseeing/patchwork-road/" target="_blank" rel="noopener noreferrer">🏃 旅ラン②パッチワークの路（5〜10km）<span class="ext">↗</span></a></h3>
+        <p class="note">ケンとメリーの木周辺・絶景丘陵地</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">08:30</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3>車内で休憩・着替え</h3>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">09:00</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3><a href="https://biei-info.jp/birke/" target="_blank" rel="noopener noreferrer">朝食：美瑛のカフェまたは道の駅<span class="ext">↗</span></a></h3>
+        <p class="note">現地で気分次第</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">10:30</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>美瑛→芦別へ移動</h3>
+        <p class="note">約1時間10分</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">11:45</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://ofurocafe-seiyukan.com/" target="_blank" rel="noopener noreferrer">芦別温泉スターライトホテル＆おふろcafé星遊館 着<span class="ext">↗</span></a></h3>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#FEF3C7;color:#D97706;">🍽️</div>
+      <div class="tl-time">12:00</div>
+      <div class="tl-card" style="background:#FEF3C7;">
+        <h3><a href="https://ofurocafe-seiyukan.com/cafe/" target="_blank" rel="noopener noreferrer">ランチ：空のカフェ<span class="ext">↗</span></a></h3>
+        <p class="note">地産地消・温泉施設併設レストラン</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">13:00</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3><a href="https://ofurocafe-seiyukan.com/" target="_blank" rel="noopener noreferrer">温泉＆おふろcafé満喫<span class="ext">↗</span></a></h3>
+        <p class="note">漫画10,000冊・ボードゲーム・キッズスペース・サウナ</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#D1FAE5;color:#059669;">🗺️</div>
+      <div class="tl-time">16:30</div>
+      <div class="tl-card" style="background:#D1FAE5;">
+        <h3><a href="https://ofurocafe-seiyukan.com/" target="_blank" rel="noopener noreferrer">🔑キーホルダー＆お土産購入<span class="ext">↗</span></a></h3>
+        <p class="note">ホテルショップ</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#DBEAFE;color:#2563EB;">🚗</div>
+      <div class="tl-time">17:00</div>
+      <div class="tl-card" style="background:#DBEAFE;">
+        <h3>芦別 出発</h3>
+        <p class="note">道央道経由・約1時間45分</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-dot" style="background:#F3F4F6;color:#6B7280;">☕</div>
+      <div class="tl-time">19:00</div>
+      <div class="tl-card" style="background:#F3F4F6;">
+        <h3>北広島 帰宅</h3>
+        <p class="note">お疲れ様でした🎉</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 宿情報 -->
+<div class="hotels-wrap" id="hotels">
+  <h2>🏨 宿泊情報</h2>
+
+  <div class="hotel-card">
+    <div class="h-night">1泊目</div>
+    <div class="h-name"><a href="https://www.shihoro-spa.co.jp/" target="_blank" rel="noopener noreferrer">道の駅しほろ温泉プラザ緑風（車中泊）<span class="ext">↗</span></a></div>
+    <div class="h-plan">車中泊・温泉日帰り入浴利用（2025年4月リニューアル）</div>
+    <dl class="h-meta">
+      <dt>料金</dt><dd>宿泊費0円／温泉大人700円・小学生350円</dd>
+      <dt>時間</dt><dd>5/3 17:30 着 → 5/4 出発</dd>
+      <dt>住所</dt><dd>北海道河東郡士幌町字下居辺西2線134番地</dd>
+      <dt>電話</dt><dd><a href="tel:01564-5-3630">01564-5-3630</a></dd>
+    </dl>
+  </div>
+
+  <div class="hotel-card">
+    <div class="h-night">2泊目</div>
+    <div class="h-name"><a href="https://biei-info.jp/birke/" target="_blank" rel="noopener noreferrer">道の駅 美瑛 白金ビルケ（車中泊）<span class="ext">↗</span></a></div>
+    <div class="h-plan">車中泊・24時間トイレ完備</div>
+    <dl class="h-meta">
+      <dt>料金</dt><dd>0円</dd>
+      <dt>時間</dt><dd>5/4 18:30 着 → 5/5 出発</dd>
+      <dt>住所</dt><dd>北海道上川郡美瑛町白金</dd>
+      <dt>電話</dt><dd><a href="tel:0166-94-3355">0166-94-3355</a></dd>
+    </dl>
+  </div>
+</div>
+
+<!-- 費用まとめ -->
+<div class="budget-wrap" id="budget">
+  <div class="budget-card">
+    <h2>💰 旅行費用まとめ</h2>
+    <div class="budget-item">
+      <span class="bi-label">高速代（往復・道東道＋道央道）</span>
+      <span class="bi-amount">約14,000円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">ガソリン代（往復約700km）</span>
+      <span class="bi-amount">約9,000円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">食費（3日間・家族4人）</span>
+      <span class="bi-amount">約30,000円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">温泉・入浴料（しほろ＋芦別おふろcafé）</span>
+      <span class="bi-amount">約8,000円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">観光・駐車料（青い池等）</span>
+      <span class="bi-amount">約3,000円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">お土産・キーホルダー（5箇所）</span>
+      <span class="bi-amount">約5,000円</span>
+    </div>
+    <div class="budget-item">
+      <span class="bi-label">合計目安</span>
+      <span class="bi-amount">約69,000円</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>🏖️ 楽しい旅になりますように！</p>
+</footer>
+
+</body>
+</html>
